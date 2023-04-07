@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C64610929E04EB6007F2348 /* Architecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7C64610829E04EB6007F2348 /* Architecture */; };
 		7CB9D4C629E04849007005F0 /* FolderifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB9D4C529E04849007005F0 /* FolderifyApp.swift */; };
 		7CB9D4C829E04849007005F0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB9D4C729E04849007005F0 /* ContentView.swift */; };
 		7CB9D4CA29E0484A007005F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CB9D4C929E0484A007005F0 /* Assets.xcassets */; };
 		7CB9D4CD29E0484A007005F0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CB9D4CC29E0484A007005F0 /* Preview Assets.xcassets */; };
 		7CB9D4D729E0484A007005F0 /* FolderifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB9D4D629E0484A007005F0 /* FolderifyTests.swift */; };
 		7CB9D4E129E0484A007005F0 /* FolderifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB9D4E029E0484A007005F0 /* FolderifyUITests.swift */; };
-		7CB9D4E329E0484A007005F0 /* FolderifyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB9D4E229E0484A007005F0 /* FolderifyUITestsLaunchTests.swift */; };
 		7CB9D4F629E0487B007005F0 /* FolderifySnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB9D4F529E0487B007005F0 /* FolderifySnapshotTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,9 +51,9 @@
 		7CB9D4D629E0484A007005F0 /* FolderifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderifyTests.swift; sourceTree = "<group>"; };
 		7CB9D4DC29E0484A007005F0 /* FolderifyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FolderifyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CB9D4E029E0484A007005F0 /* FolderifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderifyUITests.swift; sourceTree = "<group>"; };
-		7CB9D4E229E0484A007005F0 /* FolderifyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderifyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7CB9D4F329E0487B007005F0 /* FolderifySnapshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FolderifySnapshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CB9D4F529E0487B007005F0 /* FolderifySnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderifySnapshotTests.swift; sourceTree = "<group>"; };
+		7CB9D4FC29E04AAD007005F0 /* Architecture */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Architecture; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C64610929E04EB6007F2348 /* Architecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,14 +89,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C64610629E04DFA007F2348 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				7CB9D4F429E0487B007005F0 /* FolderifySnapshotTests */,
+				7CB9D4DF29E0484A007005F0 /* FolderifyUITests */,
+				7CB9D4D529E0484A007005F0 /* FolderifyTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		7C64610729E04EB6007F2348 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7C64610A29E05022007F2348 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
 		7CB9D4B929E04849007005F0 = {
 			isa = PBXGroup;
 			children = (
-				7CB9D4C429E04849007005F0 /* Folderify */,
-				7CB9D4D529E0484A007005F0 /* FolderifyTests */,
-				7CB9D4DF29E0484A007005F0 /* FolderifyUITests */,
-				7CB9D4F429E0487B007005F0 /* FolderifySnapshotTests */,
+				7C64610A29E05022007F2348 /* Modules */,
+				7C64610629E04DFA007F2348 /* Tests */,
+				7CB9D50029E04B95007005F0 /* Folderify */,
+				7CB9D4FF29E04B89007005F0 /* Packages */,
 				7CB9D4C329E04849007005F0 /* Products */,
+				7C64610729E04EB6007F2348 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,17 +134,6 @@
 				7CB9D4F329E0487B007005F0 /* FolderifySnapshotTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		7CB9D4C429E04849007005F0 /* Folderify */ = {
-			isa = PBXGroup;
-			children = (
-				7CB9D4C529E04849007005F0 /* FolderifyApp.swift */,
-				7CB9D4C729E04849007005F0 /* ContentView.swift */,
-				7CB9D4C929E0484A007005F0 /* Assets.xcassets */,
-				7CB9D4CB29E0484A007005F0 /* Preview Content */,
-			);
-			path = Folderify;
 			sourceTree = "<group>";
 		};
 		7CB9D4CB29E0484A007005F0 /* Preview Content */ = {
@@ -141,7 +156,6 @@
 			isa = PBXGroup;
 			children = (
 				7CB9D4E029E0484A007005F0 /* FolderifyUITests.swift */,
-				7CB9D4E229E0484A007005F0 /* FolderifyUITestsLaunchTests.swift */,
 			);
 			path = FolderifyUITests;
 			sourceTree = "<group>";
@@ -152,6 +166,25 @@
 				7CB9D4F529E0487B007005F0 /* FolderifySnapshotTests.swift */,
 			);
 			path = FolderifySnapshotTests;
+			sourceTree = "<group>";
+		};
+		7CB9D4FF29E04B89007005F0 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				7CB9D4FC29E04AAD007005F0 /* Architecture */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		7CB9D50029E04B95007005F0 /* Folderify */ = {
+			isa = PBXGroup;
+			children = (
+				7CB9D4C529E04849007005F0 /* FolderifyApp.swift */,
+				7CB9D4C729E04849007005F0 /* ContentView.swift */,
+				7CB9D4C929E0484A007005F0 /* Assets.xcassets */,
+				7CB9D4CB29E0484A007005F0 /* Preview Content */,
+			);
+			path = Folderify;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,6 +203,9 @@
 			dependencies = (
 			);
 			name = Folderify;
+			packageProductDependencies = (
+				7C64610829E04EB6007F2348 /* Architecture */,
+			);
 			productName = Folderify;
 			productReference = 7CB9D4C229E04849007005F0 /* Folderify.app */;
 			productType = "com.apple.product-type.application";
@@ -332,7 +368,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CB9D4E129E0484A007005F0 /* FolderifyUITests.swift in Sources */,
-				7CB9D4E329E0484A007005F0 /* FolderifyUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -700,6 +735,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7C64610829E04EB6007F2348 /* Architecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Architecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7CB9D4BA29E04849007005F0 /* Project object */;
 }

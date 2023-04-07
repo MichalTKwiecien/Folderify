@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import Architecture
 
 @main
 struct FolderifyApp: App {
+
+    let a = Architecture()
     var body: some Scene {
         WindowGroup {
             ContentView()
