@@ -14,6 +14,13 @@
 		7CB9D4D729E0484A007005F0 /* FolderifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB9D4D629E0484A007005F0 /* FolderifyTests.swift */; };
 		7CB9D4E129E0484A007005F0 /* FolderifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB9D4E029E0484A007005F0 /* FolderifyUITests.swift */; };
 		7CB9D4F629E0487B007005F0 /* FolderifySnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB9D4F529E0487B007005F0 /* FolderifySnapshotTests.swift */; };
+		7CD731F229E063AD00C8B6FE /* Architecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD731F129E063AD00C8B6FE /* Architecture */; };
+		7CD731F429E063AD00C8B6FE /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD731F329E063AD00C8B6FE /* DesignSystem */; };
+		7CD731F629E063AD00C8B6FE /* FolderViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD731F529E063AD00C8B6FE /* FolderViewer */; };
+		7CD731F829E063AD00C8B6FE /* Login in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD731F729E063AD00C8B6FE /* Login */; };
+		7CD731FA29E063AD00C8B6FE /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD731F929E063AD00C8B6FE /* Networking */; };
+		7CD731FC29E063AD00C8B6FE /* Prelude in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD731FB29E063AD00C8B6FE /* Prelude */; };
+		7CD731FE29E063AD00C8B6FE /* World in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD731FD29E063AD00C8B6FE /* World */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +73,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CD731FC29E063AD00C8B6FE /* Prelude in Frameworks */,
+				7CD731FE29E063AD00C8B6FE /* World in Frameworks */,
+				7CD731F229E063AD00C8B6FE /* Architecture in Frameworks */,
+				7CD731F629E063AD00C8B6FE /* FolderViewer in Frameworks */,
+				7CD731F829E063AD00C8B6FE /* Login in Frameworks */,
+				7CD731FA29E063AD00C8B6FE /* Networking in Frameworks */,
+				7CD731F429E063AD00C8B6FE /* DesignSystem in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +228,13 @@
 			);
 			name = Folderify;
 			packageProductDependencies = (
+				7CD731F129E063AD00C8B6FE /* Architecture */,
+				7CD731F329E063AD00C8B6FE /* DesignSystem */,
+				7CD731F529E063AD00C8B6FE /* FolderViewer */,
+				7CD731F729E063AD00C8B6FE /* Login */,
+				7CD731F929E063AD00C8B6FE /* Networking */,
+				7CD731FB29E063AD00C8B6FE /* Prelude */,
+				7CD731FD29E063AD00C8B6FE /* World */,
 			);
 			productName = Folderify;
 			productReference = 7CB9D4C229E04849007005F0 /* Folderify.app */;
@@ -744,6 +765,37 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7CD731F129E063AD00C8B6FE /* Architecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Architecture;
+		};
+		7CD731F329E063AD00C8B6FE /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
+		};
+		7CD731F529E063AD00C8B6FE /* FolderViewer */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FolderViewer;
+		};
+		7CD731F729E063AD00C8B6FE /* Login */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Login;
+		};
+		7CD731F929E063AD00C8B6FE /* Networking */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Networking;
+		};
+		7CD731FB29E063AD00C8B6FE /* Prelude */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Prelude;
+		};
+		7CD731FD29E063AD00C8B6FE /* World */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = World;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7CB9D4BA29E04849007005F0 /* Project object */;
 }
