@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7C64610929E04EB6007F2348 /* Architecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7C64610829E04EB6007F2348 /* Architecture */; };
 		7CB9D4C629E04849007005F0 /* FolderifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB9D4C529E04849007005F0 /* FolderifyApp.swift */; };
 		7CB9D4C829E04849007005F0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB9D4C729E04849007005F0 /* ContentView.swift */; };
 		7CB9D4CA29E0484A007005F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CB9D4C929E0484A007005F0 /* Assets.xcassets */; };
@@ -54,6 +53,12 @@
 		7CB9D4F329E0487B007005F0 /* FolderifySnapshotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FolderifySnapshotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CB9D4F529E0487B007005F0 /* FolderifySnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderifySnapshotTests.swift; sourceTree = "<group>"; };
 		7CB9D4FC29E04AAD007005F0 /* Architecture */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Architecture; sourceTree = "<group>"; };
+		7CDFD8BB29E0531600356350 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystem; sourceTree = "<group>"; };
+		7CDFD8BC29E0535200356350 /* Networking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Networking; sourceTree = "<group>"; };
+		7CDFD8BD29E0537C00356350 /* Prelude */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Prelude; sourceTree = "<group>"; };
+		7CDFD8BE29E053F700356350 /* Login */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Login; sourceTree = "<group>"; };
+		7CDFD8BF29E0548F00356350 /* FolderViewer */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FolderViewer; sourceTree = "<group>"; };
+		7CDFD8C429E0575400356350 /* World */ = {isa = PBXFileReference; lastKnownFileType = text; name = World; path = Modules/World; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +66,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C64610929E04EB6007F2348 /* Architecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +113,8 @@
 		7C64610A29E05022007F2348 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				7CDFD8BF29E0548F00356350 /* FolderViewer */,
+				7CDFD8BE29E053F700356350 /* Login */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -171,6 +177,10 @@
 		7CB9D4FF29E04B89007005F0 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
+				7CDFD8C429E0575400356350 /* World */,
+				7CDFD8BD29E0537C00356350 /* Prelude */,
+				7CDFD8BC29E0535200356350 /* Networking */,
+				7CDFD8BB29E0531600356350 /* DesignSystem */,
 				7CB9D4FC29E04AAD007005F0 /* Architecture */,
 			);
 			path = Packages;
@@ -204,7 +214,6 @@
 			);
 			name = Folderify;
 			packageProductDependencies = (
-				7C64610829E04EB6007F2348 /* Architecture */,
 			);
 			productName = Folderify;
 			productReference = 7CB9D4C229E04849007005F0 /* Folderify.app */;
@@ -735,13 +744,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		7C64610829E04EB6007F2348 /* Architecture */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Architecture;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7CB9D4BA29E04849007005F0 /* Project object */;
 }
