@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7CB9D4C629E04849007005F0 /* FolderifyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB9D4C529E04849007005F0 /* FolderifyApp.swift */; };
-		7CB9D4C829E04849007005F0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB9D4C729E04849007005F0 /* ContentView.swift */; };
+		7C9ABBA329E1903B00602EB1 /* ApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABBA229E1903B00602EB1 /* ApplicationDelegate.swift */; };
+		7C9ABBA629E190CC00602EB1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABBA529E190CC00602EB1 /* SceneDelegate.swift */; };
+		7C9ABBA829E1912700602EB1 /* ApplicationBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABBA729E1912700602EB1 /* ApplicationBootstrap.swift */; };
 		7CB9D4CA29E0484A007005F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CB9D4C929E0484A007005F0 /* Assets.xcassets */; };
 		7CB9D4CD29E0484A007005F0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CB9D4CC29E0484A007005F0 /* Preview Assets.xcassets */; };
 		7CB9D4D729E0484A007005F0 /* FolderifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB9D4D629E0484A007005F0 /* FolderifyTests.swift */; };
@@ -48,9 +49,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7C9ABBA229E1903B00602EB1 /* ApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDelegate.swift; sourceTree = "<group>"; };
+		7C9ABBA529E190CC00602EB1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		7C9ABBA729E1912700602EB1 /* ApplicationBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationBootstrap.swift; sourceTree = "<group>"; };
+		7C9ABBA929E1937300602EB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		7CB9D4C229E04849007005F0 /* Folderify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Folderify.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7CB9D4C529E04849007005F0 /* FolderifyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderifyApp.swift; sourceTree = "<group>"; };
-		7CB9D4C729E04849007005F0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7CB9D4C929E0484A007005F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7CB9D4CC29E0484A007005F0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7CB9D4D229E0484A007005F0 /* FolderifyUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FolderifyUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,6 +136,16 @@
 			path = Modules;
 			sourceTree = "<group>";
 		};
+		7C9ABBA429E1904300602EB1 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				7C9ABBA229E1903B00602EB1 /* ApplicationDelegate.swift */,
+				7C9ABBA529E190CC00602EB1 /* SceneDelegate.swift */,
+				7C9ABBA729E1912700602EB1 /* ApplicationBootstrap.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
 		7CB9D4B929E04849007005F0 = {
 			isa = PBXGroup;
 			children = (
@@ -203,8 +216,8 @@
 		7CB9D50029E04B95007005F0 /* Folderify */ = {
 			isa = PBXGroup;
 			children = (
-				7CB9D4C529E04849007005F0 /* FolderifyApp.swift */,
-				7CB9D4C729E04849007005F0 /* ContentView.swift */,
+				7C9ABBA929E1937300602EB1 /* Info.plist */,
+				7C9ABBA429E1904300602EB1 /* Application */,
 				7CB9D4C929E0484A007005F0 /* Assets.xcassets */,
 				7CB9D4CB29E0484A007005F0 /* Preview Content */,
 			);
@@ -380,8 +393,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7CB9D4C829E04849007005F0 /* ContentView.swift in Sources */,
-				7CB9D4C629E04849007005F0 /* FolderifyApp.swift in Sources */,
+				7C9ABBA329E1903B00602EB1 /* ApplicationDelegate.swift in Sources */,
+				7C9ABBA629E190CC00602EB1 /* SceneDelegate.swift in Sources */,
+				7C9ABBA829E1912700602EB1 /* ApplicationBootstrap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,18 +563,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Folderify/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Folderify/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Folderify;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -568,6 +582,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = techbrewery.Folderify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -582,18 +597,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Folderify/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Folderify/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Folderify;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -601,6 +616,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = techbrewery.Folderify;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
