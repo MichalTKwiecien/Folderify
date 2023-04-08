@@ -61,16 +61,6 @@
                ReferencedContainer = "container:Folderify.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ArchitectureTests"
-               BuildableName = "ArchitectureTests"
-               BlueprintName = "ArchitectureTests"
-               ReferencedContainer = "container:Packages/Architecture">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
