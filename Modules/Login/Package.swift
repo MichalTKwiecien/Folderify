@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "Login",
+    defaultLocalization: "en",
     platforms: [.iOS(.v14)],
     products: [
         .library(
@@ -20,6 +21,7 @@ let package = Package(
     targets: [
         .target(
             name: "Login",
-            dependencies: ["Prelude", "World", "DesignSystem", "Architecture"]),
+            dependencies: ["Prelude", "World", "DesignSystem", "Architecture"]
+        ),
     ]
 )

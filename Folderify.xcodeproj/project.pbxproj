@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7C2FCD9829E34B8C00C9DA88 /* Login in Frameworks */ = {isa = PBXBuildFile; productRef = 7C2FCD9729E34B8C00C9DA88 /* Login */; settings = {ATTRIBUTES = (Required, ); }; };
 		7C9ABBA329E1903B00602EB1 /* ApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABBA229E1903B00602EB1 /* ApplicationDelegate.swift */; };
 		7C9ABBA629E190CC00602EB1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABBA529E190CC00602EB1 /* SceneDelegate.swift */; };
 		7C9ABBA829E1912700602EB1 /* ApplicationBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9ABBA729E1912700602EB1 /* ApplicationBootstrap.swift */; };
@@ -18,7 +19,6 @@
 		7CD731F229E063AD00C8B6FE /* Architecture in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD731F129E063AD00C8B6FE /* Architecture */; };
 		7CD731F429E063AD00C8B6FE /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD731F329E063AD00C8B6FE /* DesignSystem */; };
 		7CD731F629E063AD00C8B6FE /* FolderViewer in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD731F529E063AD00C8B6FE /* FolderViewer */; };
-		7CD731F829E063AD00C8B6FE /* Login in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD731F729E063AD00C8B6FE /* Login */; };
 		7CD731FA29E063AD00C8B6FE /* Networking in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD731F929E063AD00C8B6FE /* Networking */; };
 		7CD731FC29E063AD00C8B6FE /* Prelude in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD731FB29E063AD00C8B6FE /* Prelude */; };
 		7CD731FE29E063AD00C8B6FE /* World in Frameworks */ = {isa = PBXBuildFile; productRef = 7CD731FD29E063AD00C8B6FE /* World */; };
@@ -49,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7C2FCD9A29E34CDC00C9DA88 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		7C9ABBA229E1903B00602EB1 /* ApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationDelegate.swift; sourceTree = "<group>"; };
 		7C9ABBA529E190CC00602EB1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		7C9ABBA729E1912700602EB1 /* ApplicationBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationBootstrap.swift; sourceTree = "<group>"; };
@@ -79,8 +80,8 @@
 				7CD731FC29E063AD00C8B6FE /* Prelude in Frameworks */,
 				7CD731FE29E063AD00C8B6FE /* World in Frameworks */,
 				7CD731F229E063AD00C8B6FE /* Architecture in Frameworks */,
+				7C2FCD9829E34B8C00C9DA88 /* Login in Frameworks */,
 				7CD731F629E063AD00C8B6FE /* FolderViewer in Frameworks */,
-				7CD731F829E063AD00C8B6FE /* Login in Frameworks */,
 				7CD731FA29E063AD00C8B6FE /* Networking in Frameworks */,
 				7CD731F429E063AD00C8B6FE /* DesignSystem in Frameworks */,
 			);
@@ -123,6 +124,7 @@
 		7C64610729E04EB6007F2348 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7C2FCD9A29E34CDC00C9DA88 /* CoreAudioTypes.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -244,10 +246,10 @@
 				7CD731F129E063AD00C8B6FE /* Architecture */,
 				7CD731F329E063AD00C8B6FE /* DesignSystem */,
 				7CD731F529E063AD00C8B6FE /* FolderViewer */,
-				7CD731F729E063AD00C8B6FE /* Login */,
 				7CD731F929E063AD00C8B6FE /* Networking */,
 				7CD731FB29E063AD00C8B6FE /* Prelude */,
 				7CD731FD29E063AD00C8B6FE /* World */,
+				7C2FCD9729E34B8C00C9DA88 /* Login */,
 			);
 			productName = Folderify;
 			productReference = 7CB9D4C229E04849007005F0 /* Folderify.app */;
@@ -783,6 +785,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		7C2FCD9729E34B8C00C9DA88 /* Login */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Login;
+		};
 		7CD731F129E063AD00C8B6FE /* Architecture */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Architecture;
@@ -794,10 +800,6 @@
 		7CD731F529E063AD00C8B6FE /* FolderViewer */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FolderViewer;
-		};
-		7CD731F729E063AD00C8B6FE /* Login */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Login;
 		};
 		7CD731F929E063AD00C8B6FE /* Networking */ = {
 			isa = XCSwiftPackageProductDependency;

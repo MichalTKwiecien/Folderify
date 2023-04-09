@@ -14,27 +14,39 @@ struct LoginView: ViewWithAdapter {
 
     func body(viewState: ViewState, send: @escaping (Action) -> Void) -> some View {
         VStack(alignment: .center) {
-            TextField(
-                "Login",
-                text: adapter.binding(
+            Image(systemName: "folder")
+                .resizable()
+                .frame(width: 48, height: 48)
+                .foregroundColor(.branding)
+
+            Text(Localizable.folderify)
+                .font(.title)
+                .padding(.bottom, 24)
+
+            TextInput(
+                title: Localizable.login,
+                value: adapter.binding(
                     get: { $0.login ?? "" },
                     send: Action.loginInput
                 )
             )
-            TextField(
-                "Password",
-                text: adapter.binding(
+
+            TextInput(
+                title: Localizable.password,
+                isSecure: true,
+                value: adapter.binding(
                     get: { $0.password ?? "" },
                     send: Action.passwordInput
                 )
             )
 
             PrimaryButton(
-                text: "Login",
+                text: Localizable.login,
                 state: .constant(viewState.ctaState),
                 action: { send(.login) }
-            )
+            ).padding(.top, 16)
         }
+        .padding(.horizontal, 24)
     }
 }
 
