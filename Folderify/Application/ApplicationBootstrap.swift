@@ -1,10 +1,8 @@
 import UIKit
-import Architecture
 import Login
 
 final class ApplicationBootstrap {
     let navigationController = UINavigationController()
-    private var currentCoordinator: Coordinator?
 
     func start() {
         // If we'd have some way of persisting user session, here we would decide what should be the startup
@@ -15,7 +13,6 @@ final class ApplicationBootstrap {
                 self?.showFolderScreen()
             }
         )
-        currentCoordinator = coordinator
         coordinator.begin()
     }
 

@@ -29,7 +29,11 @@ struct LoginView: ViewWithAdapter {
                 )
             )
 
-            Button("Login", action: { send(.login) })
+            PrimaryButton(
+                text: "Login",
+                state: .constant(viewState.ctaState),
+                action: { send(.login) }
+            )
         }
     }
 }
