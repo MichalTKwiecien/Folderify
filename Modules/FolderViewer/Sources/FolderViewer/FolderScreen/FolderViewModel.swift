@@ -8,23 +8,24 @@ final class FolderViewModel: ViewModel {
         struct Idle: Equatable {
             let root: Item
             let items: [Item.ViewState]
-            var isLoadingFile: Bool
+            var isExecutingOperation: Bool
         }
 
         case loading(Item)
         case idle(Idle)
         case error(Item)
 
-        var title: String {
+        var root: Item {
             switch self {
-            case .loading(let element), .error(let element): return element.name
-            case let .idle(data): return data.root.name
+            case .loading(let item), .error(let item): return item
+            case let .idle(data): return data.root
             }
         }
     }
 
     enum Action {
         case fetch
+        case delete
         case select(Item)
     }
 
@@ -33,16 +34,19 @@ final class FolderViewModel: ViewModel {
     private let item: Item
     private let onSelectFolder: (Item) -> Void
     private let onPreviewURL: (URL) -> Void
+    private let onDeleted: () -> Void
     private let mapper = Item.Mapper()
 
     init(
         item: Item,
         onSelectFolder: @escaping (Item) -> Void,
-        onPreviewURL: @escaping (URL) -> Void
+        onPreviewURL: @escaping (URL) -> Void,
+        onDeleted: @escaping () -> Void
     ) {
         self.item = item
         self.onSelectFolder = onSelectFolder
         self.onPreviewURL = onPreviewURL
+        self.onDeleted = onDeleted
         viewStateSubject = .init(.loading(item))
     }
 
@@ -50,6 +54,8 @@ final class FolderViewModel: ViewModel {
         switch action {
         case .fetch:
             fetch()
+        case .delete:
+            delete()
         case let .select(item):
             if item.isFolder {
                 onSelectFolder(item)
@@ -71,7 +77,7 @@ private extension FolderViewModel {
                     .sorted(by: { $0.modificationDate > $1.modificationDate })
                     .map { $0.toViewState(using: mapper) }
                 await MainActor.run {
-                    viewState = .idle(.init(root: item, items: itemViewStates, isLoadingFile: false))
+                    viewState = .idle(.init(root: item, items: itemViewStates, isExecutingOperation: false))
                 }
             case .failure:
                 await MainActor.run {
@@ -83,13 +89,13 @@ private extension FolderViewModel {
 
     func downloadFile(for item: Item) {
         guard case var .idle(data) = viewState else { return }
-        data.isLoadingFile = true
+        data.isExecutingOperation = true
         viewState = .idle(data)
 
         Task(priority: .userInitiated) {
             let result = await Current.services.items.download(item)
             await MainActor.run {
-                finishDownloading()
+                finishExecutingOperation()
             }
             guard case let .success(url) = result else { return }
             await MainActor.run {
@@ -98,9 +104,34 @@ private extension FolderViewModel {
         }
     }
 
-    private func finishDownloading() {
+    private func delete() {
         guard case var .idle(data) = viewState else { return }
-        data.isLoadingFile = true
+        data.isExecutingOperation = true
+        viewState = .idle(data)
+
+        let root = data.root
+        Task(priority: .userInitiated) {
+            switch await Current.services.items.delete(root.id) {
+            case .success:
+                await MainActor.run {
+                    finishExecutingOperation()
+                    onDeleted()
+                }
+            case .failure:
+                await MainActor.run {
+                    viewState = .error(root)
+                }
+            }
+        }
+    }
+
+    private func finishExecutingOperation() {
+        guard case var .idle(data) = viewState else { return }
+        data.isExecutingOperation = true
         viewState = .idle(data)
     }
+}
+
+extension Item {
+    var isDeleteAllowed: Bool { !parentID.isEmpty }
 }

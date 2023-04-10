@@ -24,7 +24,16 @@ struct FolderView: ViewWithAdapter {
                 idle(viewState: data, send: send)
             }
         }
-        .navigationTitle(viewState.title)
+        .navigationTitle(viewState.root.name)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                if viewState.root.isDeleteAllowed {
+                    Button(action: { send(.delete) }) {
+                        Image(systemName: "trash").foregroundColor(.danger)
+                    }
+                }
+            }
+        }
         .onAppear { send(.fetch) }
     }
 
@@ -77,9 +86,9 @@ struct FolderView: ViewWithAdapter {
                     }
                 }
                 .listStyle(.insetGrouped)
-                .disabled(viewState.isLoadingFile)
+                .disabled(viewState.isExecutingOperation)
 
-                if viewState.isLoadingFile {
+                if viewState.isExecutingOperation {
                     ProgressView().progressViewStyle(CircularProgressViewStyle())
                 }
             }
@@ -117,7 +126,7 @@ struct FolderView: ViewWithAdapter {
                     root: .mockDirectory,
                     items: [Item.mockDirectory, .mockFile1, .mockFile1]
                         .map { $0.toViewState(using: .init()) },
-                    isLoadingFile: false
+                    isExecutingOperation: false
                 )))
             )
             .previewDisplayName("Idle")
@@ -127,7 +136,7 @@ struct FolderView: ViewWithAdapter {
                     root: .mockDirectory,
                     items: [Item.mockDirectory, .mockFile1, .mockFile1]
                         .map { $0.toViewState(using: .init()) },
-                    isLoadingFile: false
+                    isExecutingOperation: false
                 )))
             )
             .previewDisplayName("Idle - downloading file")
@@ -136,7 +145,7 @@ struct FolderView: ViewWithAdapter {
                 .just(.idle(.init(
                     root: .mockDirectory,
                     items: [],
-                    isLoadingFile: false
+                    isExecutingOperation: false
                 )))
             )
             .previewDisplayName("Idle - empty")

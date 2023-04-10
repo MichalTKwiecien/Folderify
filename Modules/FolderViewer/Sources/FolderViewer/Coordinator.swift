@@ -26,10 +26,13 @@ private extension MainCoordinator {
         let viewModel = FolderViewModel(
             item: item,
             onSelectFolder: { element in
-                self.showFolderScreen(for: element)
+                showFolderScreen(for: element)
             },
             onPreviewURL: { url in
                 showPreview(for: url)
+            },
+            onDeleted: {
+                navigationController.popViewController(animated: true)
             }
         )
         let viewController = ViewWithAdapterHostingController<FolderView, FolderViewModel>(viewModel: viewModel)

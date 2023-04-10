@@ -7,6 +7,7 @@ public struct Item: Decodable, Equatable {
     public let name: String
     public let isFolder: Bool
     public let modificationDate: Date
+    public let parentID: ID
 
     /// Size of the element, represented in bytes
     public let size: Int?
@@ -14,6 +15,7 @@ public struct Item: Decodable, Equatable {
     enum CodingKeys: String, CodingKey {
         case id, name, modificationDate, size
         case isFolder = "isDir"
+        case parentID = "parentId"
     }
 }
 
@@ -24,6 +26,7 @@ public struct Item: Decodable, Equatable {
             name: "Directory 1",
             isFolder: true,
             modificationDate: Date(timeIntervalSince1970: 1680343200),
+            parentID: "directory-0",
             size: nil
         )
 
@@ -32,6 +35,7 @@ public struct Item: Decodable, Equatable {
             name: "File 1",
             isFolder: false,
             modificationDate: Date(timeIntervalSince1970: 1580343200),
+            parentID: "directory-0",
             size: 500000
         )
 
@@ -40,6 +44,7 @@ public struct Item: Decodable, Equatable {
             name: "File 2",
             isFolder: false,
             modificationDate: Date(timeIntervalSince1970: 1480343200),
+            parentID: "directory-0",
             size: 120400
         )
     }
