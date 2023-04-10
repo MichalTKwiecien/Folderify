@@ -13,7 +13,7 @@ public extension World {
 
 public extension World.Services {
     struct User {
-        @AnyAsyncResultClosure(mock: .mock) var me = userService.me
+        @AnyAsyncResultClosure(mock: .mock) var login = userService.login
     }
 
     struct Items {
