@@ -62,13 +62,20 @@ private extension FolderViewModel {
     func fetch() {
         viewState = .loading(item)
 
-        // TODO: Add fetching mechanism
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-            let elements: [Item] = [.mockDirectory, .mockFile1, .mockFile2]
-            let viewStateElements = elements
-                .sorted(by: { $0.modificationDate > $1.modificationDate })
-                .map { $0.toViewState(using: self.mapper) }
-            self.viewState = .idle(.init(root: self.item, items: viewStateElements))
+        Task(priority: .userInitiated) {
+            switch await Current.services.items.items(item.id) {
+            case let .success(items):
+                let itemViewStates = items
+                    .sorted(by: { $0.modificationDate > $1.modificationDate })
+                    .map { $0.toViewState(using: mapper) }
+                await MainActor.run {
+                    viewState = .idle(.init(root: item, items: itemViewStates))
+                }
+            case .failure:
+                await MainActor.run {
+                    viewState = .error(item)
+                }
+            }
         }
     }
 }

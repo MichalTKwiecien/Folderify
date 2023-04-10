@@ -65,8 +65,8 @@ extension URLResponse {
 extension Data {
     /// Produces pretty printed from data from json string
     var prettyPrintedJSONString: CustomStringConvertible {
-        let dictionary = try? JSONSerialization.jsonObject(with: self, options: .allowFragments) as? [String: Any] ?? [:]
-        return dictionary ?? [:]
+        let dictionary = try? JSONSerialization.jsonObject(with: self, options: .allowFragments) as? [String: Any]
+        return dictionary ?? jsonString
     }
 
     /// Produces non formatted json string.

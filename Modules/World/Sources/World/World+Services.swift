@@ -20,7 +20,7 @@ public extension World.Services {
     struct Items {
         @AnyAsyncResultClosure(mock: .mock) public var items = itemsService.items
         @AnyAsyncResultClosure(mock: .mock) public var delete = itemsService.delete
-        @AnyAsyncResultClosure(mock: Data()) public var data = itemsService.data
+        @AnyAsyncResultClosure(mock: .mock) public var download = itemsService.download
         @AnyAsyncResultClosure(mock: .mock) public var createFolder = itemsService.create
         @AnyAsyncResultClosure(mock: .mock) public var uploadFile = itemsService.upload
     }

@@ -1,3 +1,5 @@
+import Foundation
+
 @dynamicMemberLookup
 public struct Response<T: Decodable> {
     public let statusCode: HTTPStatusCode

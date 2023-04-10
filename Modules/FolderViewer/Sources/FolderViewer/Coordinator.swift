@@ -1,10 +1,12 @@
 import Architecture
 import World
 import UIKit
+import QuickLook
 
-public struct MainCoordinator: Coordinator {
+public final class MainCoordinator: Coordinator {
     private let navigationController: UINavigationController
     private let root: Item
+    private var previewingURL: URL?
 
     public init(
         navigationController: UINavigationController,
@@ -25,13 +27,13 @@ private extension MainCoordinator {
             item: item,
             onSelect: { element in
                 if element.isDirectory {
-                    showFolderScreen(for: element)
+                    self.showFolderScreen(for: element)
                 } else {
-                    showFileView(for: element)
+                    self.showFileView(for: element)
                 }
             },
-            onBack: {
-                navigationController.popViewController(animated: true)
+            onBack: { [weak self] in
+                self?.navigationController.popViewController(animated: true)
             }
         )
         let viewController = ViewWithAdapterHostingController<FolderView, FolderViewModel>(viewModel: viewModel)
@@ -44,12 +46,28 @@ private extension MainCoordinator {
     }
 
     func showFileView(for item: Item) {
-        let viewModel = FileViewModel(
-            onDismiss: {
-                navigationController.dismiss(animated: true)
+        Task(priority: .userInitiated) {
+            switch await Current.services.items.download(item) {
+            case let .success(url):
+                await MainActor.run {
+                    previewingURL = url
+                    let previewController = QLPreviewController()
+                    previewController.dataSource = self
+                    navigationController.present(previewController, animated: true)
+                }
+            case .failure:
+                break
             }
-        )
-        let viewController = ViewWithAdapterHostingController<FileView, FileViewModel>(viewModel: viewModel)
-        navigationController.present(viewController, animated: true)
+        }
+    }
+}
+
+extension MainCoordinator: QLPreviewControllerDataSource {
+    public func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
+        1
+    }
+
+    public func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+        return previewingURL! as QLPreviewItem // If we're in this place, it's safe to assume it's not optional
     }
 }

@@ -37,6 +37,19 @@ public final class DefaultHTTPClient: HTTPClient {
         }
     }
 
+    public func download<ResponseType>(
+        request: Request<ResponseType>
+    ) async -> Result<URL, NetworkingError> where ResponseType: Decodable {
+        let request = prepare(request: request)
+        networkTrafficLogger?(request.contents())
+        do {
+            let (url, _) = try await session.download(for: request)
+            return .success(url)
+        } catch {
+            return .failure(customized(error: error))
+        }
+    }
+
     private func prepare<Response>(request: Request<Response>) -> URLRequest {
         let url: URL
         switch request.endpoint.url {

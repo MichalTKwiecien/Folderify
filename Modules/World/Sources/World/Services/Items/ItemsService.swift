@@ -28,15 +28,30 @@ final class ItemsService {
         return await client.send(request: request).map(\.value)
     }
 
-    func data(id: Item.ID) async -> Result<Data, NetworkingError> {
+    func download(item: Item) async -> Result<URL, NetworkingError> {
         let request = Request<Data>(
             endpoint: Endpoint(
-                url: .relative(URL(safe: "/items/\(id)/data")),
+                url: .relative(URL(safe: "/items/\(item.id)/data")),
                 method: .get
             )
         )
 
-        return await client.send(request: request).map(\.value)
+        switch await client.download(request: request) {
+        case let .success(url):
+            do {
+                let documentsDirectoryURL = FileManager.default.temporaryDirectory
+                let previewURL = documentsDirectoryURL.appendingPathComponent(item.name)
+                if FileManager.default.fileExists(atPath: previewURL.path) {
+                    try FileManager.default.removeItem(at: previewURL)
+                }
+                try FileManager.default.moveItem(at: url, to: previewURL)
+                return .success(previewURL)
+            } catch {
+                return .failure(.decoding(.dataCorrupted(.init(codingPath: [], debugDescription: ""))))
+            }
+        case let .failure(error):
+            return .failure(error)
+        }
     }
 
     func create(folder: String, in root: Item.ID) async -> Result<[Item], NetworkingError> {
