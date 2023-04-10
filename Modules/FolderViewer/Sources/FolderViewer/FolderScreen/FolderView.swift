@@ -28,46 +28,54 @@ struct FolderView: ViewWithAdapter {
         .onAppear { send(.fetch) }
     }
 
+    @ViewBuilder
     func idle(viewState: ViewState.Idle, send: @escaping (Action) -> Void) -> some View {
-        List {
-            ForEach(viewState.items) { item in
-                Button(action: { send(.select(item.raw)) }) {
-                    HStack(alignment: .center, spacing: 16) {
-                        switch item.kind {
-                        case .directory:
-                            Image(systemName: "folder")
-                                .foregroundColor(.branding)
-                                .frame(width: 24, height: 24)
-                        case .file:
-                            Image(systemName: "doc")
-                                .foregroundColor(.branding)
-                                .frame(width: 24, height: 24)
-                        }
+        if viewState.items.isEmpty {
+            VStack(spacing: 8) {
+                Image(systemName: "eye.slash.fill").foregroundColor(.branding)
+                Text(Localizable.folderViewEmpty).font(.title3)
+            }
+        } else {
+            List {
+                ForEach(viewState.items) { item in
+                    Button(action: { send(.select(item.raw)) }) {
+                        HStack(alignment: .center, spacing: 16) {
+                            switch item.kind {
+                            case .directory:
+                                Image(systemName: "folder")
+                                    .foregroundColor(.branding)
+                                    .frame(width: 24, height: 24)
+                            case .file:
+                                Image(systemName: "doc")
+                                    .foregroundColor(.branding)
+                                    .frame(width: 24, height: 24)
+                            }
 
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text(item.title)
-                                .foregroundColor(.dark)
-                            if let size = item.size {
-                                Text(size)
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(item.title)
+                                    .foregroundColor(.dark)
+                                if let size = item.size {
+                                    Text(size)
+                                        .font(.caption)
+                                        .foregroundColor(.branding)
+                                }
+                            }
+
+                            Spacer()
+                            if let modificationDate = item.modificationDate {
+                                Text(modificationDate)
                                     .font(.caption)
+                                    .foregroundColor(.dark)
+                            }
+                            if item.kind == .directory {
+                                Image(systemName: "chevron.right")
                                     .foregroundColor(.branding)
                             }
                         }
-
-                        Spacer()
-                        if let modificationDate = item.modificationDate {
-                            Text(modificationDate)
-                                .font(.caption)
-                                .foregroundColor(.dark)
-                        }
-                        if item.kind == .directory {
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(.branding)
-                        }
                     }
                 }
-            }
-        }.listStyle(.insetGrouped)
+            }.listStyle(.insetGrouped)
+        }
     }
 
     func loading(viewState: Element, send: @escaping (Action) -> Void) -> some View {
@@ -82,10 +90,10 @@ struct FolderView: ViewWithAdapter {
                 .resizable()
                 .frame(width: 80, height: 80)
                 .foregroundColor(.branding)
-            Text("Error")
+            Text(Localizable.folderViewErrorTitle)
                 .font(.title)
             SecondaryButton(
-                text: "Try again",
+                text: Localizable.folderViewErrorCTA,
                 state: .constant(.interactive),
                 action: { send(.fetch) }
             ).padding(.top, 32)
@@ -106,6 +114,16 @@ struct FolderView: ViewWithAdapter {
                 )
             }
             .previewDisplayName("Idle")
+
+            NavigationView {
+                FolderView(
+                    .just(.idle(.init(
+                        root: .mockDirectory,
+                        items: []
+                    )))
+                )
+            }
+            .previewDisplayName("Idle - empty")
 
             FolderView(
                 .just(.loading(.mockDirectory))
