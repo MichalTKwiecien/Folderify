@@ -20,7 +20,7 @@ final class ApplicationBootstrap {
         // TODO: Get root ID
         FolderViewer.MainCoordinator(
             navigationController: navigationController,
-            rootID: "1234" // TODO: Replace with real id
+            root: .mockDirectory // TODO: Replace with real id
         ).begin()
     }
 }

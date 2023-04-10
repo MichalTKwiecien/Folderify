@@ -1,6 +1,5 @@
 import Architecture
 import Combine
-import DesignSystem
 
 final class FileViewModel: ViewModel {
     struct ViewState: Equatable, BulkApplicable {

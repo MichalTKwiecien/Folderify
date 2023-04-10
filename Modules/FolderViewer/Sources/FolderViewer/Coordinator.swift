@@ -4,38 +4,39 @@ import UIKit
 
 public struct MainCoordinator: Coordinator {
     private let navigationController: UINavigationController
-    private let rootID: Element.ID
+    private let root: Element
 
     public init(
         navigationController: UINavigationController,
-        rootID: Element.ID
+        root: Element
     ) {
         self.navigationController = navigationController
-        self.rootID = rootID
+        self.root = root
     }
 
     public func begin() {
-        showFolderScreen(with: rootID)
+        showFolderScreen(for: root)
     }
 }
 
 private extension MainCoordinator {
-    func showFolderScreen(with id: Element.ID) {
+    func showFolderScreen(for element: Element) {
         let viewModel = FolderViewModel(
+            element: element,
             onBack: {
                 navigationController.popViewController(animated: true)
             }
         )
         let viewController = ViewWithAdapterHostingController<FolderView, FolderViewModel>(viewModel: viewModel)
 
-        if id == rootID {
-            navigationController.setViewControllers([viewController], animated: true)
+        if element == root {
+            navigationController.setViewControllers([viewController], animated: false)
         } else {
             navigationController.pushViewController(viewController, animated: true)
         }
     }
 
-    func showFileView(with id: Element.ID) {
+    func showFileView(for element: Element) {
         let viewModel = FileViewModel(
             onDismiss: {
                 navigationController.dismiss(animated: true)
