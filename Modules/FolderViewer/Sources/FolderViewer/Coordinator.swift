@@ -3,7 +3,7 @@ import World
 import UIKit
 import QuickLook
 
-public final class MainCoordinator: Coordinator {
+public struct MainCoordinator: Coordinator {
     private let navigationController: UINavigationController
     private let root: Item
     private var previewingURL: URL?
@@ -25,15 +25,11 @@ private extension MainCoordinator {
     func showFolderScreen(for item: Item, isRoot: Bool = false) {
         let viewModel = FolderViewModel(
             item: item,
-            onSelect: { element in
-                if element.isDirectory {
-                    self.showFolderScreen(for: element)
-                } else {
-                    self.showFileView(for: element)
-                }
+            onSelectFolder: { element in
+                self.showFolderScreen(for: element)
             },
-            onBack: { [weak self] in
-                self?.navigationController.popViewController(animated: true)
+            onPreviewURL: { url in
+                showPreview(for: url)
             }
         )
         let viewController = ViewWithAdapterHostingController<FolderView, FolderViewModel>(viewModel: viewModel)
@@ -45,29 +41,8 @@ private extension MainCoordinator {
         }
     }
 
-    func showFileView(for item: Item) {
-        Task(priority: .userInitiated) {
-            switch await Current.services.items.download(item) {
-            case let .success(url):
-                await MainActor.run {
-                    previewingURL = url
-                    let previewController = QLPreviewController()
-                    previewController.dataSource = self
-                    navigationController.present(previewController, animated: true)
-                }
-            case .failure:
-                break
-            }
-        }
-    }
-}
-
-extension MainCoordinator: QLPreviewControllerDataSource {
-    public func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
-        1
-    }
-
-    public func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
-        return previewingURL! as QLPreviewItem // If we're in this place, it's safe to assume it's not optional
+    func showPreview(for url: URL) {
+        let viewControler = PreviewViewController(url: url)
+        navigationController.present(viewControler, animated: true)
     }
 }

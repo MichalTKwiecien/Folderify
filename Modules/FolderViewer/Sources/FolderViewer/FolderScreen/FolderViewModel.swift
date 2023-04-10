@@ -8,6 +8,7 @@ final class FolderViewModel: ViewModel {
         struct Idle: Equatable {
             let root: Item
             let items: [Item.ViewState]
+            var isLoadingFile: Bool
         }
 
         case loading(Item)
@@ -23,7 +24,6 @@ final class FolderViewModel: ViewModel {
     }
 
     enum Action {
-        case back
         case fetch
         case select(Item)
     }
@@ -31,29 +31,31 @@ final class FolderViewModel: ViewModel {
     let viewStateSubject: CurrentValueSubject<ViewState, Never>
 
     private let item: Item
-    private let onSelect: (Item) -> Void
-    private let onBack: () -> Void
+    private let onSelectFolder: (Item) -> Void
+    private let onPreviewURL: (URL) -> Void
     private let mapper = Item.Mapper()
 
     init(
         item: Item,
-        onSelect: @escaping (Item) -> Void,
-        onBack: @escaping () -> Void
+        onSelectFolder: @escaping (Item) -> Void,
+        onPreviewURL: @escaping (URL) -> Void
     ) {
         self.item = item
-        self.onSelect = onSelect
-        self.onBack = onBack
+        self.onSelectFolder = onSelectFolder
+        self.onPreviewURL = onPreviewURL
         viewStateSubject = .init(.loading(item))
     }
 
     func send(_ action: Action) {
         switch action {
-        case .back:
-            onBack()
         case .fetch:
             fetch()
-        case let .select(element):
-            onSelect(element)
+        case let .select(item):
+            if item.isFolder {
+                onSelectFolder(item)
+            } else {
+                downloadFile(for: item)
+            }
         }
     }
 }
@@ -69,7 +71,7 @@ private extension FolderViewModel {
                     .sorted(by: { $0.modificationDate > $1.modificationDate })
                     .map { $0.toViewState(using: mapper) }
                 await MainActor.run {
-                    viewState = .idle(.init(root: item, items: itemViewStates))
+                    viewState = .idle(.init(root: item, items: itemViewStates, isLoadingFile: false))
                 }
             case .failure:
                 await MainActor.run {
@@ -77,5 +79,28 @@ private extension FolderViewModel {
                 }
             }
         }
+    }
+
+    func downloadFile(for item: Item) {
+        guard case var .idle(data) = viewState else { return }
+        data.isLoadingFile = true
+        viewState = .idle(data)
+
+        Task(priority: .userInitiated) {
+            let result = await Current.services.items.download(item)
+            await MainActor.run {
+                finishDownloading()
+            }
+            guard case let .success(url) = result else { return }
+            await MainActor.run {
+                onPreviewURL(url)
+            }
+        }
+    }
+
+    private func finishDownloading() {
+        guard case var .idle(data) = viewState else { return }
+        data.isLoadingFile = true
+        viewState = .idle(data)
     }
 }

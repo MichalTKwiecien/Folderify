@@ -39,7 +39,7 @@ extension Item {
             title: name,
             size: size.map { mapper.sizeFormatter.string(fromByteCount: Int64($0)) },
             modificationDate: mapper.dateFormatter.string(from: modificationDate),
-            kind: isDirectory ? .directory : .file
+            kind: isFolder ? .directory : .file
         )
     }
 }

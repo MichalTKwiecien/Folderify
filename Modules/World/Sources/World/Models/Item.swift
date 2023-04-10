@@ -5,7 +5,7 @@ public struct Item: Decodable, Equatable {
 
     public let id: ID
     public let name: String
-    public let isDirectory: Bool
+    public let isFolder: Bool
     public let modificationDate: Date
 
     /// Size of the element, represented in bytes
@@ -13,7 +13,7 @@ public struct Item: Decodable, Equatable {
 
     enum CodingKeys: String, CodingKey {
         case id, name, modificationDate, size
-        case isDirectory = "isDir"
+        case isFolder = "isDir"
     }
 }
 
@@ -22,7 +22,7 @@ public struct Item: Decodable, Equatable {
         static let mockDirectory = Item(
             id: "directory-1",
             name: "Directory 1",
-            isDirectory: true,
+            isFolder: true,
             modificationDate: Date(timeIntervalSince1970: 1680343200),
             size: nil
         )
@@ -30,7 +30,7 @@ public struct Item: Decodable, Equatable {
         static let mockFile1 = Item(
             id: "file-1",
             name: "File 1",
-            isDirectory: false,
+            isFolder: false,
             modificationDate: Date(timeIntervalSince1970: 1580343200),
             size: 500000
         )
@@ -38,7 +38,7 @@ public struct Item: Decodable, Equatable {
         static let mockFile2 = Item(
             id: "file-2",
             name: "File 2",
-            isDirectory: false,
+            isFolder: false,
             modificationDate: Date(timeIntervalSince1970: 1480343200),
             size: 120400
         )
