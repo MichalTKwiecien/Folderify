@@ -5,7 +5,8 @@ extension Item {
     final class Mapper {
         private(set) lazy var dateFormatter = {
             let formatter = DateFormatter()
-            // TODO: Set locale from World
+            formatter.locale = Current.system.locale()
+            formatter.timeZone = Current.system.timeZone()
             formatter.dateStyle = .medium
             formatter.timeStyle = .none
             return formatter
@@ -13,7 +14,6 @@ extension Item {
 
         private(set) lazy var sizeFormatter = {
             let formatter = ByteCountFormatter()
-            // TODO: Set locale from World
             return formatter
         }()
     }
