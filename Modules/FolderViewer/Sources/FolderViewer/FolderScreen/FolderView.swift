@@ -78,7 +78,7 @@ struct FolderView: ViewWithAdapter {
         }
     }
 
-    func loading(viewState: Element, send: @escaping (Action) -> Void) -> some View {
+    func loading(viewState: Item, send: @escaping (Action) -> Void) -> some View {
         VStack(alignment: .center) {
             ProgressView().progressViewStyle(CircularProgressViewStyle())
         }
@@ -108,7 +108,7 @@ struct FolderView: ViewWithAdapter {
                 FolderView(
                     .just(.idle(.init(
                         root: .mockDirectory,
-                        items: [Element.mockDirectory, .mockFile1, .mockFile1]
+                        items: [Item.mockDirectory, .mockFile1, .mockFile1]
                             .map { $0.toViewState(using: .init()) }
                     )))
                 )

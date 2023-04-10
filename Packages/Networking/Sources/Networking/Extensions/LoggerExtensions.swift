@@ -74,15 +74,3 @@ extension Data {
         String(data: self, encoding: .utf8) ?? "N/A"
     }
 }
-
-extension Publisher where Output == URLRequest {
-    func logRequest(with logger: Networking.Logger?) -> Publishers.HandleEvents<Self> {
-        handleEvents(receiveOutput: { logger?($0.contents()) })
-    }
-}
-
-extension Publisher where Output == URLSession.DataTaskPublisher.Output {
-    func logResponse(with logger: Networking.Logger?) -> Publishers.HandleEvents<Self> {
-        handleEvents(receiveOutput: { logger?($0.response.contents(of: $0.data)) })
-    }
-}

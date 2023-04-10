@@ -4,11 +4,11 @@ import UIKit
 
 public struct MainCoordinator: Coordinator {
     private let navigationController: UINavigationController
-    private let root: Element
+    private let root: Item
 
     public init(
         navigationController: UINavigationController,
-        root: Element
+        root: Item
     ) {
         self.navigationController = navigationController
         self.root = root
@@ -20,9 +20,9 @@ public struct MainCoordinator: Coordinator {
 }
 
 private extension MainCoordinator {
-    func showFolderScreen(for element: Element, isRoot: Bool = false) {
+    func showFolderScreen(for item: Item, isRoot: Bool = false) {
         let viewModel = FolderViewModel(
-            element: element,
+            item: item,
             onSelect: { element in
                 if element.isDirectory {
                     showFolderScreen(for: element)
@@ -43,7 +43,7 @@ private extension MainCoordinator {
         }
     }
 
-    func showFileView(for element: Element) {
+    func showFileView(for item: Item) {
         let viewModel = FileViewModel(
             onDismiss: {
                 navigationController.dismiss(animated: true)

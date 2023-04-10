@@ -1,7 +1,4 @@
-import Combine
 import Foundation
-import Networking
-import UIKit
 
 // Initialize the services used by World here
 private let userService = UserService()
@@ -16,14 +13,14 @@ public extension World {
 
 public extension World.Services {
     struct User {
-        @AnyPublisherClosure var me = userService.me
+        @AnyAsyncResultClosure(mock: .mock) var me = userService.me
     }
 
     struct Items {
-        @AnyPublisherClosure var items = itemsService.items
-        @AnyPublisherClosure var delete = itemsService.delete
-        @AnyPublisherClosure var data = itemsService.data
-        @AnyPublisherClosure var createFolder = itemsService.create
-        @AnyPublisherClosure var uploadFile = itemsService.upload
+        @AnyAsyncResultClosure(mock: .mock) var items = itemsService.items
+        @AnyAsyncResultClosure(mock: .mock) var delete = itemsService.delete
+        @AnyAsyncResultClosure(mock: Data()) var data = itemsService.data
+        @AnyAsyncResultClosure(mock: .mock) var createFolder = itemsService.create
+        @AnyAsyncResultClosure(mock: .mock) var uploadFile = itemsService.upload
     }
 }

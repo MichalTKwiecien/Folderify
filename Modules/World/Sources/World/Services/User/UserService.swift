@@ -5,7 +5,7 @@ import Networking
 final class UserService {
     private let client: HTTPClient = httpApiClient
 
-    func me(login: String, password: String) -> AnyPublisher<User, NetworkingError> {
+    func me(login: String, password: String) async -> Result<User, NetworkingError> {
         let authorization = Authorization.basic(login: login, password: password)
         let request = Request<User>(
             endpoint: Endpoint(
@@ -15,8 +15,6 @@ final class UserService {
             headers: [authorization.asHeader]
         )
 
-        return client.send(request: request)
-            .map(\.value)
-            .eraseToAnyPublisher()
+        return await client.send(request: request).map(\.value)
     }
 }

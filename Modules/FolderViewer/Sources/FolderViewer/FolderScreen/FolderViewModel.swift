@@ -6,13 +6,13 @@ import Foundation
 final class FolderViewModel: ViewModel {
     enum ViewState: Equatable, BulkApplicable {
         struct Idle: Equatable {
-            let root: Element
-            let items: [Element.ViewState]
+            let root: Item
+            let items: [Item.ViewState]
         }
 
-        case loading(Element)
+        case loading(Item)
         case idle(Idle)
-        case error(Element)
+        case error(Item)
 
         var title: String {
             switch self {
@@ -25,25 +25,25 @@ final class FolderViewModel: ViewModel {
     enum Action {
         case back
         case fetch
-        case select(Element)
+        case select(Item)
     }
 
     let viewStateSubject: CurrentValueSubject<ViewState, Never>
 
-    private let element: Element
-    private let onSelect: (Element) -> Void
+    private let item: Item
+    private let onSelect: (Item) -> Void
     private let onBack: () -> Void
-    private let mapper = Element.Mapper()
+    private let mapper = Item.Mapper()
 
     init(
-        element: Element,
-        onSelect: @escaping (Element) -> Void,
+        item: Item,
+        onSelect: @escaping (Item) -> Void,
         onBack: @escaping () -> Void
     ) {
-        self.element = element
+        self.item = item
         self.onSelect = onSelect
         self.onBack = onBack
-        viewStateSubject = .init(.loading(element))
+        viewStateSubject = .init(.loading(item))
     }
 
     func send(_ action: Action) {
@@ -60,15 +60,15 @@ final class FolderViewModel: ViewModel {
 
 private extension FolderViewModel {
     func fetch() {
-        viewState = .loading(element)
+        viewState = .loading(item)
 
         // TODO: Add fetching mechanism
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-            let elements: [Element] = [.mockDirectory, .mockFile1, .mockFile2]
+            let elements: [Item] = [.mockDirectory, .mockFile1, .mockFile2]
             let viewStateElements = elements
                 .sorted(by: { $0.modificationDate > $1.modificationDate })
                 .map { $0.toViewState(using: self.mapper) }
-            self.viewState = .idle(.init(root: self.element, items: viewStateElements))
+            self.viewState = .idle(.init(root: self.item, items: viewStateElements))
         }
     }
 }

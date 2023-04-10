@@ -8,4 +8,6 @@ public struct Response<T: Decodable> {
     }
 }
 
-public struct EmptyResponse: Decodable {}
+public struct EmptyResponse: Decodable {
+    public static let mock = EmptyResponse()
+}

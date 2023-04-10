@@ -1,6 +1,4 @@
 @_exported import Prelude
-import Foundation
-import Combine
 
 #if DEBUG
     public var Current = World()
@@ -40,12 +38,11 @@ public struct World {
 
 // Property wrappers used for mapping the methods into the closures
 // They're responsible for choosing proper implementation of the components based on isConnected
-
 @propertyWrapper
-public struct AnyClosure<I, O> {
-    public var wrappedValue: (I) -> O
+public struct AnyAsyncClosure<I, O> {
+    public var wrappedValue: (I) async -> O
 
-    public init(wrappedValue: @escaping (I) -> O, mock: O) {
+    public init(wrappedValue: @escaping (I) async -> O, mock: O) {
         #if DEBUG
             self.wrappedValue = World.isConnected ? wrappedValue : { _ in mock }
         #else
@@ -55,21 +52,13 @@ public struct AnyClosure<I, O> {
 }
 
 @propertyWrapper
-public struct AnyPublisherClosure<I, O, F: Error> {
-    @AnyClosure public var wrappedValue: (I) -> AnyPublisher<O, F>
+public struct AnyAsyncResultClosure<I, O, F: Error> {
+    @AnyAsyncClosure public var wrappedValue: (I) async -> Result<O, F>
 
-    public init(wrappedValue: @escaping (I) -> AnyPublisher<O, F>, mock: O? = nil) {
+    public init(wrappedValue: @escaping (I) async -> Result<O, F>, mock: O) {
         _wrappedValue = .init(
             wrappedValue: wrappedValue,
-            mock: {
-                if let mock {
-                    return Just(mock)
-                        .setFailureType(to: F.self)
-                        .eraseToAnyPublisher()
-                } else {
-                    return Empty(completeImmediately: true).eraseToAnyPublisher()
-                }
-            }()
+            mock: .success(mock)
         )
     }
 }

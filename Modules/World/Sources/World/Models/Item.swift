@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Element: Decodable, Equatable {
+public struct Item: Decodable, Equatable {
     public enum ContentType: String, Decodable {
         case jpg = "image/jpeg"
         case png = "image/png"
@@ -30,8 +30,8 @@ public struct Element: Decodable, Equatable {
 }
 
 #if DEBUG
-    public extension Element {
-        static let mockDirectory = Element(
+    public extension Item {
+        static let mockDirectory = Item(
             id: "directory-1",
             name: "Directory 1",
             isDirectory: true,
@@ -40,7 +40,7 @@ public struct Element: Decodable, Equatable {
             size: nil
         )
 
-        static let mockFile1 = Element(
+        static let mockFile1 = Item(
             id: "file-1",
             name: "File 1",
             isDirectory: false,
@@ -49,7 +49,7 @@ public struct Element: Decodable, Equatable {
             size: 500000
         )
 
-        static let mockFile2 = Element(
+        static let mockFile2 = Item(
             id: "file-2",
             name: "File 2",
             isDirectory: false,
@@ -57,5 +57,9 @@ public struct Element: Decodable, Equatable {
             contentType: .png,
             size: 120400
         )
+    }
+
+    public extension Array where Element == Item {
+        static let mock: [Item] = [.mockDirectory, .mockFile1, .mockFile2]
     }
 #endif

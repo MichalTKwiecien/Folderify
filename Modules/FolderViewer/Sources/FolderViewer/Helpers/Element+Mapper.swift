@@ -1,7 +1,7 @@
 import Foundation
 import World
 
-extension Element {
+extension Item {
     final class Mapper {
         private(set) lazy var dateFormatter = {
             let formatter = DateFormatter()
@@ -24,16 +24,16 @@ extension Element {
             case directory
         }
 
-        var id: Element.ID { raw.id }
+        var id: Item.ID { raw.id }
 
-        let raw: Element
+        let raw: Item
         let title: String
         let size: String?
         let modificationDate: String?
         let kind: Kind
     }
 
-    func toViewState(using mapper: Element.Mapper) -> Element.ViewState {
+    func toViewState(using mapper: Item.Mapper) -> Item.ViewState {
         .init(
             raw: self,
             title: name,
