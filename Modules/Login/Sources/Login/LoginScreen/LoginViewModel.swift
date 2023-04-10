@@ -14,6 +14,7 @@ final class LoginViewModel: ViewModel {
         case loginInput(String)
         case passwordInput(String)
         case login
+        case dismissError
     }
 
     let viewStateSubject: CurrentValueSubject<ViewState, Never>
@@ -42,6 +43,8 @@ final class LoginViewModel: ViewModel {
         case .login:
             guard let login = viewState.login, let password = viewState.password else { return }
             logIn(login: login, password: password)
+        case .dismissError:
+            viewState.isLoginErrorVisible = false
         }
     }
 
@@ -49,10 +52,11 @@ final class LoginViewModel: ViewModel {
         viewState.ctaState = .loading
         
         // TODO: Add logic
-        viewState.apply {
-            $0.ctaState = .interactive
-            $0.isLoginErrorVisible = true
-        }
+//        viewState.apply {
+//            $0.ctaState = .interactive
+//            $0.isLoginErrorVisible = true
+//        }
+        onSuccessfulLogin()
     }
 }
 

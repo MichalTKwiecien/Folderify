@@ -47,6 +47,15 @@ struct LoginView: ViewWithAdapter {
             ).padding(.top, 16)
         }
         .padding(.horizontal, 24)
+        .alert(isPresented: .constant(viewState.isLoginErrorVisible)) {
+            Alert(
+                title: Text(Localizable.loginErrorTitle),
+                message: Text(Localizable.loginErrorContent),
+                dismissButton: .default(Text(Localizable.loginErrorCTA), action: {
+                    send(.dismissError)
+                })
+            )
+        }
     }
 }
 

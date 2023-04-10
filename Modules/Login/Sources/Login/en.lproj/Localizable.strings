@@ -1,3 +1,6 @@
 "folderify" = "Folderify";
 "login" = "Login";
 "password" = "Password";
+"login.error.title" = "Error";
+"login.error.content" = "Encountered error while trying to authenticate";
+"login.error.cta" = "OK";
