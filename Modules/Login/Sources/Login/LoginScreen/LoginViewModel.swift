@@ -31,21 +31,19 @@ final class LoginViewModel: ViewModel {
     func send(_ action: Action) {
         switch action {
         case let .loginInput(value):
-            viewState.login = value
-            validateCTAState()
+            viewState.apply {
+                $0.login = value
+                $0.validateCTAState()
+            }
         case let .passwordInput(value):
-            viewState.password = value
-            validateCTAState()
+            viewState.apply {
+                $0.password = value
+                $0.validateCTAState()
+            }
         case .login:
             guard let login = viewState.login, let password = viewState.password else { return }
             logIn(login: login, password: password)
         }
-    }
-
-    private func validateCTAState() {
-        let isInteractice = viewState.login?.isEmpty == false
-            && viewState.password?.isEmpty == false
-        viewState.ctaState = isInteractice ? .interactive : .disabled
     }
 
     private func logIn(login: String, password: String) {
@@ -56,5 +54,12 @@ final class LoginViewModel: ViewModel {
             $0.ctaState = .interactive
             $0.isLoginErrorVisible = true
         }
+    }
+}
+
+private extension LoginViewModel.ViewState {
+    mutating func validateCTAState() {
+        let isInteractice = login?.isEmpty == false && password?.isEmpty == false
+        ctaState = isInteractice ? .interactive : .disabled
     }
 }
