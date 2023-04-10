@@ -35,7 +35,7 @@ public struct Element: Decodable, Equatable {
             id: "directory-1",
             name: "Directory 1",
             isDirectory: true,
-            modificationDate: Date.init(timeIntervalSince1970: 1680343200),
+            modificationDate: Date(timeIntervalSince1970: 1680343200),
             contentType: nil,
             size: nil
         )
@@ -44,7 +44,7 @@ public struct Element: Decodable, Equatable {
             id: "file-1",
             name: "File 1",
             isDirectory: false,
-            modificationDate: Date.init(timeIntervalSince1970: 1680343200),
+            modificationDate: Date(timeIntervalSince1970: 1580343200),
             contentType: .jpg,
             size: 500000
         )
@@ -53,7 +53,7 @@ public struct Element: Decodable, Equatable {
             id: "file-2",
             name: "File 2",
             isDirectory: false,
-            modificationDate: Date.init(timeIntervalSince1970: 1580343200),
+            modificationDate: Date(timeIntervalSince1970: 1480343200),
             contentType: .png,
             size: 120400
         )

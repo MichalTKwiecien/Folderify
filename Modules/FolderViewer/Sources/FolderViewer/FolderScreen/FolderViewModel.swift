@@ -7,7 +7,7 @@ final class FolderViewModel: ViewModel {
     enum ViewState: Equatable, BulkApplicable {
         struct Idle: Equatable {
             let root: Element
-            let items: [Element]
+            let items: [Element.ViewState]
         }
 
         case loading(Element)
@@ -25,18 +25,23 @@ final class FolderViewModel: ViewModel {
     enum Action {
         case back
         case fetch
+        case select(Element)
     }
 
     let viewStateSubject: CurrentValueSubject<ViewState, Never>
 
     private let element: Element
+    private let onSelect: (Element) -> Void
     private let onBack: () -> Void
+    private let mapper = Element.Mapper()
 
     init(
         element: Element,
+        onSelect: @escaping (Element) -> Void,
         onBack: @escaping () -> Void
     ) {
         self.element = element
+        self.onSelect = onSelect
         self.onBack = onBack
         viewStateSubject = .init(.loading(element))
     }
@@ -47,6 +52,8 @@ final class FolderViewModel: ViewModel {
             onBack()
         case .fetch:
             fetch()
+        case let .select(element):
+            onSelect(element)
         }
     }
 }
@@ -57,7 +64,11 @@ private extension FolderViewModel {
 
         // TODO: Add fetching mechanism
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1)) {
-            self.viewState = .idle(.init(root: self.element, items: [.mockDirectory, .mockFile1, .mockFile2]))
+            let elements: [Element] = [.mockDirectory, .mockFile1, .mockFile2]
+            let viewStateElements = elements
+                .sorted(by: { $0.modificationDate > $1.modificationDate })
+                .map { $0.toViewState(using: self.mapper) }
+            self.viewState = .idle(.init(root: self.element, items: viewStateElements))
         }
     }
 }

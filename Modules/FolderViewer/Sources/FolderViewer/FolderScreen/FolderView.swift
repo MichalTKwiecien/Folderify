@@ -25,12 +25,49 @@ struct FolderView: ViewWithAdapter {
             }
         }
         .navigationTitle(viewState.title)
-        .padding(.horizontal, 24)
         .onAppear { send(.fetch) }
     }
 
     func idle(viewState: ViewState.Idle, send: @escaping (Action) -> Void) -> some View {
-        Text("Idle")
+        List {
+            ForEach(viewState.items) { item in
+                Button(action: { send(.select(item.raw)) }) {
+                    HStack(alignment: .center, spacing: 16) {
+                        switch item.kind {
+                        case .directory:
+                            Image(systemName: "folder")
+                                .foregroundColor(.branding)
+                                .frame(width: 24, height: 24)
+                        case .file:
+                            Image(systemName: "doc")
+                                .foregroundColor(.branding)
+                                .frame(width: 24, height: 24)
+                        }
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(item.title)
+                                .foregroundColor(.dark)
+                            if let size = item.size {
+                                Text(size)
+                                    .font(.caption)
+                                    .foregroundColor(.branding)
+                            }
+                        }
+
+                        Spacer()
+                        if let modificationDate = item.modificationDate {
+                            Text(modificationDate)
+                                .font(.caption)
+                                .foregroundColor(.dark)
+                        }
+                        if item.kind == .directory {
+                            Image(systemName: "chevron.right")
+                                .foregroundColor(.branding)
+                        }
+                    }
+                }
+            }
+        }.listStyle(.insetGrouped)
     }
 
     func loading(viewState: Element, send: @escaping (Action) -> Void) -> some View {
@@ -52,7 +89,7 @@ struct FolderView: ViewWithAdapter {
                 state: .constant(.interactive),
                 action: { send(.fetch) }
             ).padding(.top, 32)
-        }
+        }.padding(.horizontal, 24)
     }
 }
 
@@ -61,7 +98,11 @@ struct FolderView: ViewWithAdapter {
         static var previews: some View {
             NavigationView {
                 FolderView(
-                    .just(.idle(.init(root: .mockDirectory, items: [.mockDirectory, .mockFile1, .mockFile2])))
+                    .just(.idle(.init(
+                        root: .mockDirectory,
+                        items: [Element.mockDirectory, .mockFile1, .mockFile1]
+                            .map { $0.toViewState(using: .init()) }
+                    )))
                 )
             }
             .previewDisplayName("Idle")

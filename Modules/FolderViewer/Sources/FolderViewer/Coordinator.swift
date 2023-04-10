@@ -15,21 +15,28 @@ public struct MainCoordinator: Coordinator {
     }
 
     public func begin() {
-        showFolderScreen(for: root)
+        showFolderScreen(for: root, isRoot: true)
     }
 }
 
 private extension MainCoordinator {
-    func showFolderScreen(for element: Element) {
+    func showFolderScreen(for element: Element, isRoot: Bool = false) {
         let viewModel = FolderViewModel(
             element: element,
+            onSelect: { element in
+                if element.isDirectory {
+                    showFolderScreen(for: element)
+                } else {
+                    showFileView(for: element)
+                }
+            },
             onBack: {
                 navigationController.popViewController(animated: true)
             }
         )
         let viewController = ViewWithAdapterHostingController<FolderView, FolderViewModel>(viewModel: viewModel)
 
-        if element == root {
+        if isRoot {
             navigationController.setViewControllers([viewController], animated: false)
         } else {
             navigationController.pushViewController(viewController, animated: true)
@@ -43,6 +50,6 @@ private extension MainCoordinator {
             }
         )
         let viewController = ViewWithAdapterHostingController<FileView, FileViewModel>(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.present(viewController, animated: true)
     }
 }
