@@ -1,6 +1,3 @@
-public struct Networking {
-    public private(set) var text = "Hello, World!"
+@_exported import Prelude
 
-    public init() {
-    }
-}
+public enum Networking {}
