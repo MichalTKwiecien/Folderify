@@ -50,6 +50,23 @@ public final class DefaultHTTPClient: HTTPClient {
         }
     }
 
+    public func upload<ResponseType>(
+        request: Request<ResponseType>,
+        file: URL
+    ) async -> Result<Response<ResponseType>, NetworkingError> where ResponseType: Decodable {
+        let request = prepare(request: request)
+        networkTrafficLogger?(request.contents())
+        do {
+            let (data, response) = try await session.upload(for: request, fromFile: file)
+            networkTrafficLogger?(response.contents(of: data))
+            try validate(data: data, response: response)
+            let decoded = try decode(data: data, response: response, type: ResponseType.self)
+            return .success(decoded)
+        } catch {
+            return .failure(customized(error: error))
+        }
+    }
+
     private func prepare<Response>(request: Request<Response>) -> URLRequest {
         let url: URL
         switch request.endpoint.url {

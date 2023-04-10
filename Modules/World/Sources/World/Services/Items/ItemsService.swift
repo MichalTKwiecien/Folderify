@@ -80,10 +80,9 @@ final class ItemsService {
             headers: [
                 .contentTypeStream,
                 .init(key: "Content-Disposition", value: "attachment;filename*=utf-8''\(file.name)")
-            ],
-            body: file.data
+            ]
         )
 
-        return await client.send(request: request).map(\.value)
+        return await client.upload(request: request, file: file.url).map(\.value)
     }
 }
