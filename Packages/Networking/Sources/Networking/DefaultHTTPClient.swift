@@ -1,16 +1,13 @@
 import Foundation
 
 public final class DefaultHTTPClient: HTTPClient {
-    private let baseURL: URL
     private var authorization: Authorization?
-
-    fileprivate static let queue = DispatchQueue(label: "Networking.Session", qos: .userInitiated)
-    fileprivate static let jsonDecoder = {
+    private let baseURL: URL
+    private let jsonDecoder = {
         let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
+        decoder.dateDecodingStrategy = .formatted(.iso8601WithMilliseconds)
         return decoder
     }()
-
     private let session = URLSession(configuration: .default)
     private let networkTrafficLogger: Networking.Logger?
 
@@ -75,7 +72,7 @@ public final class DefaultHTTPClient: HTTPClient {
             } else if EmptyResponse.self == T.self {
                 return Response(statusCode: httpStatusCode, value: EmptyResponse() as! T)
             } else {
-                let decoded = try DefaultHTTPClient.jsonDecoder.decode(T.self, from: data)
+                let decoded = try jsonDecoder.decode(T.self, from: data)
                 return Response(statusCode: httpStatusCode, value: decoded)
             }
         } catch {

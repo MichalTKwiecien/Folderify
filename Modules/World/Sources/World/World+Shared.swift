@@ -6,6 +6,6 @@ import Foundation
 // They must stay internal!
 
 let httpApiClient: HTTPClient = DefaultHTTPClient(
-    baseURL: URL(safe: "163.172.147.216:8080"),
+    baseURL: URL(safe: "http://163.172.147.216:8080"),
     networkTrafficLogger: consoleLog // Use `consoleLog` to see responses in the console
 )

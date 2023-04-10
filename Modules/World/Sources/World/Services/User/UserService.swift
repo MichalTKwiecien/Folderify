@@ -12,7 +12,8 @@ final class UserService {
                 url: .relative(URL(safe: "/me")),
                 method: .get
             ),
-            headers: [authorization.asHeader]
+            headers: [authorization.asHeader],
+            cachePolicy: .reloadIgnoringLocalCacheData
         )
 
         let result = await client.send(request: request).map(\.value)

@@ -1,13 +1,14 @@
 import Architecture
 import UIKit
+import World
 
 public struct MainCoordinator: Coordinator {
     private let navigationController: UINavigationController
-    private let onSuccessfulLogin: () -> Void
+    private let onSuccessfulLogin: (User) -> Void
 
     public init(
         navigationController: UINavigationController,
-        onSuccessfulLogin: @escaping () -> Void
+        onSuccessfulLogin: @escaping (User) -> Void
     ) {
         self.navigationController = navigationController
         self.onSuccessfulLogin = onSuccessfulLogin

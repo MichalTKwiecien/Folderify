@@ -1,4 +1,5 @@
 import Foundation
+import Networking
 
 // Initialize the services used by World here
 private let userService = UserService()
@@ -13,14 +14,14 @@ public extension World {
 
 public extension World.Services {
     struct User {
-        @AnyAsyncResultClosure(mock: .mock) var login = userService.login
+        @AnyAsyncResultClosure(mock: .mock) public var login = userService.login
     }
 
     struct Items {
-        @AnyAsyncResultClosure(mock: .mock) var items = itemsService.items
-        @AnyAsyncResultClosure(mock: .mock) var delete = itemsService.delete
-        @AnyAsyncResultClosure(mock: Data()) var data = itemsService.data
-        @AnyAsyncResultClosure(mock: .mock) var createFolder = itemsService.create
-        @AnyAsyncResultClosure(mock: .mock) var uploadFile = itemsService.upload
+        @AnyAsyncResultClosure(mock: .mock) public var items = itemsService.items
+        @AnyAsyncResultClosure(mock: .mock) public var delete = itemsService.delete
+        @AnyAsyncResultClosure(mock: Data()) public var data = itemsService.data
+        @AnyAsyncResultClosure(mock: .mock) public var createFolder = itemsService.create
+        @AnyAsyncResultClosure(mock: .mock) public var uploadFile = itemsService.upload
     }
 }

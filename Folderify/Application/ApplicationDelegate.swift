@@ -1,5 +1,6 @@
 @_exported import Prelude
 import UIKit
+import World
 
 @main
 final class ApplicationDelegate: NSObject, UIApplicationDelegate {
@@ -14,6 +15,6 @@ final class ApplicationDelegate: NSObject, UIApplicationDelegate {
 
 private extension ApplicationDelegate {
     func setup() {
-        // TODO: Setup Design System, World, etc.
+        World.start()
     }
 }

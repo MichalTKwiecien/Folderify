@@ -1,4 +1,5 @@
 import UIKit
+import World
 import Login
 import FolderViewer
 
@@ -10,17 +11,16 @@ final class ApplicationBootstrap {
         // screen for the user. For now we're always showing Login.
         Login.MainCoordinator(
             navigationController: navigationController,
-            onSuccessfulLogin: { [weak self] in
-                self?.showFolderScreen()
+            onSuccessfulLogin: { [weak self] user in
+                self?.showFolderScreen(user: user)
             }
         ).begin()
     }
 
-    private func showFolderScreen() {
-        // TODO: Get root ID
+    private func showFolderScreen(user: User) {
         FolderViewer.MainCoordinator(
             navigationController: navigationController,
-            root: .mockDirectory // TODO: Replace with real id
+            root: user.root
         ).begin()
     }
 }

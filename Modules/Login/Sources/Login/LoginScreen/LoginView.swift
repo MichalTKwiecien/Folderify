@@ -29,7 +29,7 @@ struct LoginView: ViewWithAdapter {
                     get: { $0.login ?? "" },
                     send: Action.loginInput
                 )
-            )
+            ).autocapitalization(.none)
 
             TextInput(
                 title: Localizable.password,

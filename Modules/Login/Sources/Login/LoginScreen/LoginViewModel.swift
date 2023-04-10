@@ -1,6 +1,7 @@
 import Architecture
 import Combine
 import DesignSystem
+import World
 
 final class LoginViewModel: ViewModel {
     struct ViewState: Equatable, BulkApplicable {
@@ -19,10 +20,10 @@ final class LoginViewModel: ViewModel {
 
     let viewStateSubject: CurrentValueSubject<ViewState, Never>
 
-    private let onSuccessfulLogin: () -> Void
+    private let onSuccessfulLogin: (User) -> Void
 
     init(
-        onSuccessfulLogin: @escaping () -> Void
+        onSuccessfulLogin: @escaping (User) -> Void
     ) {
         self.onSuccessfulLogin = onSuccessfulLogin
         viewStateSubject = .init(.init())
@@ -50,13 +51,23 @@ final class LoginViewModel: ViewModel {
 
     private func logIn(login: String, password: String) {
         viewState.ctaState = .loading
-        
-        // TODO: Add logic
-//        viewState.apply {
-//            $0.ctaState = .interactive
-//            $0.isLoginErrorVisible = true
-//        }
-        onSuccessfulLogin()
+
+        Task(priority: .userInitiated) {
+            switch await Current.services.user.login((login, password)) {
+            case let .success(user):
+                await MainActor.run {
+                    viewState.ctaState = .interactive
+                    onSuccessfulLogin(user)
+                }
+            case .failure:
+                await MainActor.run {
+                    viewState.apply {
+                        $0.ctaState = .interactive
+                        $0.isLoginErrorVisible = true
+                    }
+                }
+            }
+        }
     }
 }
 
