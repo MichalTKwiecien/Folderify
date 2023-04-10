@@ -19,7 +19,6 @@ final class LoginViewModel: ViewModel {
     let viewStateSubject: CurrentValueSubject<ViewState, Never>
 
     private let onSuccessfulLogin: () -> Void
-    private var cancellables = Set<AnyCancellable>()
 
     init(
         onSuccessfulLogin: @escaping () -> Void
