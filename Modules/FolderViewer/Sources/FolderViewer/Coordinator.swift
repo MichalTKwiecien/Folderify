@@ -6,7 +6,7 @@ import QuickLook
 public struct MainCoordinator: Coordinator {
     private let navigationController: UINavigationController
     private let root: Item
-    private var previewingURL: URL?
+    private let filePicker = FilePicker()
 
     public init(
         navigationController: UINavigationController,
@@ -33,6 +33,9 @@ private extension MainCoordinator {
             },
             onCreateFolder: { refresher in
                 showCreateFolder(parentID: item.id, refresher: refresher)
+            },
+            onPickFile: { uploader in
+                filePicker.present(selectedFile: uploader, on: navigationController)
             },
             onDeleted: {
                 navigationController.popViewController(animated: true)

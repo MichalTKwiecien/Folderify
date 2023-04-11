@@ -37,6 +37,7 @@ final class FolderViewModel: ViewModel {
     private let onSelectFolder: (Item) -> Void
     private let onPreviewURL: (URL) -> Void
     private let onCreateFolder: (@escaping () -> Void) -> Void
+    private let onPickFile: (@escaping (File) -> Void) -> Void
     private let onDeleted: () -> Void
     private let mapper = Item.Mapper()
 
@@ -45,12 +46,14 @@ final class FolderViewModel: ViewModel {
         onSelectFolder: @escaping (Item) -> Void,
         onPreviewURL: @escaping (URL) -> Void,
         onCreateFolder: @escaping (@escaping () -> Void) -> Void,
+        onPickFile: @escaping (@escaping (File) -> Void) -> Void,
         onDeleted: @escaping () -> Void
     ) {
         self.item = item
         self.onSelectFolder = onSelectFolder
         self.onPreviewURL = onPreviewURL
         self.onCreateFolder = onCreateFolder
+        self.onPickFile = onPickFile
         self.onDeleted = onDeleted
         viewStateSubject = .init(.loading(item))
     }
@@ -64,7 +67,7 @@ final class FolderViewModel: ViewModel {
         case .createFolder:
             onCreateFolder(fetch)
         case .uploadFile:
-            break // TODO
+            onPickFile(upload)
         case let .select(item):
             if item.isFolder {
                 onSelectFolder(item)
@@ -125,6 +128,26 @@ private extension FolderViewModel {
                 await MainActor.run {
                     finishExecutingOperation()
                     onDeleted()
+                }
+            case .failure:
+                await MainActor.run {
+                    viewState = .error(root)
+                }
+            }
+        }
+    }
+
+    func upload(file: File) {
+        guard case var .idle(data) = viewState else { return }
+        data.isExecutingOperation = true
+        viewState = .idle(data)
+
+        let root = data.root
+        Task(priority: .userInitiated) {
+            switch await Current.services.items.uploadFile((file, root.id)) {
+            case .success:
+                await MainActor.run {
+                    fetch()
                 }
             case .failure:
                 await MainActor.run {
