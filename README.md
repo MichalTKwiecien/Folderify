@@ -10,7 +10,7 @@ https://user-images.githubusercontent.com/8243412/231037856-636ee688-e902-4209-9
 - Xcode 14.3
 
 ### Setup:
-1. Open `Folderify`
+1. Open `Folderify.xcodeproj`
 2. Hit `Run`
 3. Login using credentials given to you
 
@@ -38,7 +38,7 @@ mocking during development and allows writing UI tests that do not use network
 * DesignSystem - reusable components for SwiftUI
 
 #### Testability
-Code is fully testable but due to time limtations I wasn't able to add tests. Architectures allows usto easily add:
+Code is fully testable but due to time limtations I wasn't able to add tests. Architectures allows us to easily add:
 * Unit tests
 * Snapshot tests
 * UI tests
