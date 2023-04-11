@@ -44,14 +44,30 @@ struct FolderView: ViewWithAdapter {
 
     @ViewBuilder
     func idle(viewState: ViewState.Idle, send: @escaping (Action) -> Void) -> some View {
-        if viewState.items.isEmpty {
-            VStack(spacing: 8) {
-                Image(systemName: "eye.slash.fill").foregroundColor(.branding)
-                Text(Localizable.folderViewEmpty).font(.title3)
-            }
-        } else {
-            ZStack(alignment: .center) {
+        ZStack(alignment: .center) {
+            if viewState.items.isEmpty {
+                VStack(spacing: 8) {
+                    Image(systemName: "eye.slash.fill").foregroundColor(.branding)
+                    Text(Localizable.folderViewEmpty).font(.title3)
+                    Button(action: { send(.uploadFile) }) {
+                        HStack {
+                            Image(systemName: "plus.rectangle.fill.on.rectangle.fill").foregroundColor(.branding)
+
+                            Text(Localizable.folderUploadFileCTA)
+                                .foregroundColor(.branding)
+                        }
+                    }.padding(.top, 32)
+                }
+            } else {
                 List {
+                    Button(action: { send(.uploadFile) }) {
+                        HStack {
+                            Image(systemName: "plus.rectangle.fill.on.rectangle.fill").foregroundColor(.branding)
+
+                            Text(Localizable.folderUploadFileCTA)
+                                .foregroundColor(.branding)
+                        }
+                    }
                     ForEach(viewState.items) { item in
                         Button(action: { send(.select(item.raw)) }) {
                             HStack(alignment: .center, spacing: 16) {
@@ -92,10 +108,10 @@ struct FolderView: ViewWithAdapter {
                 }
                 .listStyle(.insetGrouped)
                 .disabled(viewState.isExecutingOperation)
+            }
 
-                if viewState.isExecutingOperation {
-                    ProgressView().progressViewStyle(CircularProgressViewStyle())
-                }
+            if viewState.isExecutingOperation {
+                ProgressView().progressViewStyle(CircularProgressViewStyle())
             }
         }
     }

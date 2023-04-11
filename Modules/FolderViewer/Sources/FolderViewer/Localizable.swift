@@ -8,6 +8,7 @@ enum Localizable {
     static let folderViewErrorTitle = translation(for: "folder.view.error.title")
     static let folderViewErrorCTA = translation(for: "folder.view.error.cta")
     static let folderViewEmpty = translation(for: "folder.view.empty")
+    static let folderUploadFileCTA = translation(for: "folder.view.upload.cta")
 
     static let createFolderTitle = translation(for: "create.folder.title")
     static let createFolderNamePlaceholder = translation(for: "create.folder.name.placeholder")

@@ -27,6 +27,7 @@ final class FolderViewModel: ViewModel {
         case fetch
         case delete
         case createFolder
+        case uploadFile
         case select(Item)
     }
 
@@ -62,6 +63,8 @@ final class FolderViewModel: ViewModel {
             delete()
         case .createFolder:
             onCreateFolder(fetch)
+        case .uploadFile:
+            break // TODO
         case let .select(item):
             if item.isFolder {
                 onSelectFolder(item)

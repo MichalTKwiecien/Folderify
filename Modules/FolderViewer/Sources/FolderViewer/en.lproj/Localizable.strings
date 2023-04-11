@@ -1,6 +1,7 @@
 "folder.view.error.title" = "Error";
 "folder.view.error.cta" = "Try again";
 "folder.view.empty" = "Nothing to see";
+"folder.view.upload.cta" = "Upload file";
 
 "create.folder.title" = "Create folder";
 "create.folder.name.placeholder" = "Name";
