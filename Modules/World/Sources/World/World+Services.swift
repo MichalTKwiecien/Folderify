@@ -21,7 +21,7 @@ public extension World.Services {
         @AnyAsyncResultClosure(mock: .mock) public var items = itemsService.items
         @AnyAsyncResultClosure(mock: .mock) public var delete = itemsService.delete
         @AnyAsyncResultClosure(mock: .mock) public var download = itemsService.download
-        @AnyAsyncResultClosure(mock: .mock) public var createFolder = itemsService.create
-        @AnyAsyncResultClosure(mock: .mock) public var uploadFile = itemsService.upload
+        @AnyAsyncResultClosure(mock: .mockFile1) public var createFolder = itemsService.create
+        @AnyAsyncResultClosure(mock: .mockFile1) public var uploadFile = itemsService.upload
     }
 }

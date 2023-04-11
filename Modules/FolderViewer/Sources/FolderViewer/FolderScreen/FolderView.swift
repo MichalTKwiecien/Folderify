@@ -27,6 +27,11 @@ struct FolderView: ViewWithAdapter {
         .navigationTitle(viewState.root.name)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { send(.createFolder) }) {
+                    Image(systemName: "folder.badge.plus").foregroundColor(.branding)
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
                 if viewState.root.isDeleteAllowed {
                     Button(action: { send(.delete) }) {
                         Image(systemName: "trash").foregroundColor(.danger)

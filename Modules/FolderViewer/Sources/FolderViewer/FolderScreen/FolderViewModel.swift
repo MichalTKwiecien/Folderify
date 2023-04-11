@@ -26,6 +26,7 @@ final class FolderViewModel: ViewModel {
     enum Action {
         case fetch
         case delete
+        case createFolder
         case select(Item)
     }
 
@@ -34,6 +35,7 @@ final class FolderViewModel: ViewModel {
     private let item: Item
     private let onSelectFolder: (Item) -> Void
     private let onPreviewURL: (URL) -> Void
+    private let onCreateFolder: (@escaping () -> Void) -> Void
     private let onDeleted: () -> Void
     private let mapper = Item.Mapper()
 
@@ -41,11 +43,13 @@ final class FolderViewModel: ViewModel {
         item: Item,
         onSelectFolder: @escaping (Item) -> Void,
         onPreviewURL: @escaping (URL) -> Void,
+        onCreateFolder: @escaping (@escaping () -> Void) -> Void,
         onDeleted: @escaping () -> Void
     ) {
         self.item = item
         self.onSelectFolder = onSelectFolder
         self.onPreviewURL = onPreviewURL
+        self.onCreateFolder = onCreateFolder
         self.onDeleted = onDeleted
         viewStateSubject = .init(.loading(item))
     }
@@ -56,6 +60,8 @@ final class FolderViewModel: ViewModel {
             fetch()
         case .delete:
             delete()
+        case .createFolder:
+            onCreateFolder(fetch)
         case let .select(item):
             if item.isFolder {
                 onSelectFolder(item)

@@ -54,12 +54,12 @@ final class ItemsService {
         }
     }
 
-    func create(folder: String, in root: Item.ID) async -> Result<[Item], NetworkingError> {
+    func create(folder: String, in root: Item.ID) async -> Result<Item, NetworkingError> {
         struct Body: Encodable {
             let name: String
         }
 
-        let request = Request<[Item]>(
+        let request = Request<Item>(
             endpoint: Endpoint(
                 url: .relative(URL(safe: "/items/\(root)")),
                 method: .post
@@ -71,8 +71,8 @@ final class ItemsService {
         return await client.send(request: request).map(\.value)
     }
 
-    func upload(file: File, in root: Item.ID) async -> Result<[Item], NetworkingError> {
-        let request = Request<[Item]>(
+    func upload(file: File, in root: Item.ID) async -> Result<Item, NetworkingError> {
+        let request = Request<Item>(
             endpoint: Endpoint(
                 url: .relative(URL(safe: "/items/\(root)")),
                 method: .post

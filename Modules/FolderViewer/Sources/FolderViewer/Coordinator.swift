@@ -31,6 +31,9 @@ private extension MainCoordinator {
             onPreviewURL: { url in
                 showPreview(for: url)
             },
+            onCreateFolder: { refresher in
+                showCreateFolder(parentID: item.id, refresher: refresher)
+            },
             onDeleted: {
                 navigationController.popViewController(animated: true)
             }
@@ -42,6 +45,18 @@ private extension MainCoordinator {
         } else {
             navigationController.pushViewController(viewController, animated: true)
         }
+    }
+
+    func showCreateFolder(parentID: Item.ID, refresher: @escaping () -> Void) {
+        let viewModel = CreateFolderViewModel(
+            parentID: parentID,
+            onSuccessfulCreation: {
+                navigationController.dismiss(animated: true)
+                refresher()
+            }
+        )
+        let viewController = ViewWithAdapterHostingController<CreateFolderView, CreateFolderViewModel>(viewModel: viewModel)
+        navigationController.present(viewController, animated: true)
     }
 
     func showPreview(for url: URL) {

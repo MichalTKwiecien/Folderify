@@ -1,3 +1,10 @@
 "folder.view.error.title" = "Error";
 "folder.view.error.cta" = "Try again";
 "folder.view.empty" = "Nothing to see";
+
+"create.folder.title" = "Create folder";
+"create.folder.name.placeholder" = "Name";
+"create.folder.cta" = "Create";
+"create.folder.error.title" = "Error";
+"create.folder.error.content" = "There was an error while trying to create the folder";
+"create.folder.error.cta" = "OK";
