@@ -1,7 +1,8 @@
 # Folderify application
 
 ## Demo
-![](readme-assets/folderify.mov)
+https://user-images.githubusercontent.com/8243412/231037856-636ee688-e902-4209-9ed6-6dd9ceeaccaa.mov
+
 
 ## How to Run the Project
 
